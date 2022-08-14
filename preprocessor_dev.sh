@@ -5,21 +5,28 @@
 if [ "$Platform" == "Linux" ] ; then
 
   DEBUGGER=$1
+  # DEBUGFLAG="--do-debug-window"
 
-  DEBUGFLAG="--do-debug-window"
+  $DEBUGGER bin/preprocessor_dev     \
+    $DEBUGFLAG                       \
+    -D BONSAI_PREPROCESSOR           \
+    -D BONSAI_LINUX                  \
+    -D __x86_64__                    \
+    -o src/generated                 \
+    src/game_loader.cpp              \
+    -I src                           \
+    -I src/poof
 
-  $DEBUGGER bin/preprocessor_dev         \
-    $DEBUGFLAG                           \
-    -D BONSAI_PREPROCESSOR               \
-    -D BONSAI_LINUX                      \
-    -D __x86_64__                        \
-    src/poof/preprocessor.cpp \
-    -I src                               \
-    -I /usr/include                      \
-    -I /usr/include/x86_64-linux-gnu     \
-    -I /usr/include/clang/6.0.0/include 
-
-    # -I /usr/include/c++/6 # NOTE(Jesse): This is where <random>, <algorithm> and <numeric> live.  Rewrite perlin.h
+  # $DEBUGGER bin/preprocessor_dev     \
+  #   $DEBUGFLAG                       \
+  #   -D BONSAI_PREPROCESSOR           \
+  #   -D BONSAI_LINUX                  \
+  #   -D __x86_64__                    \
+  #   -o src/generated                 \
+  #   src/bonsai_debug/debug.cpp       \
+  #   -I src                           \
+  #   -I src/poof                      \
+  #   -I src/bonsai_debug
 
 elif [ "$Platform" == "Windows" ] ; then
 

@@ -1,14 +1,14 @@
 #! /bin/bash
 
-BUILD_EVERYTHING=1
+BUILD_EVERYTHING=0
 
 CheckoutMetaOutput=0
 
-BuildPoof=0
+BuildPoof=1
 BuildExecutables=0
 BuildDebugTests=0
 BuildTests=0
-BuildDebugSystem=1
+BuildDebugSystem=0
 BuildExamples=0
 
 RunFirstPreprocessor=0
@@ -106,7 +106,7 @@ EXAMPLES_TO_BUILD="
   # $EXAMPLES/space_invaders
 
 EXECUTABLES_TO_BUILD="
-  $SRC/platform.cpp
+  $SRC/game_loader.cpp
   $SRC/font/ttf.cpp
 "
   #$SRC/net/server.cpp
@@ -127,7 +127,7 @@ function BuildPoof {
   echo -e ""
 
   ColorizeTitle "Building Preprocessor"
-  executable="$SRC/poof/preprocessor.cpp"
+  executable="$SRC/poof/poof/preprocessor.cpp"
   SetOutputBinaryPathBasename "$executable" "$BIN"
   echo -e "$Building $executable"
   clang++                                                \
@@ -138,6 +138,7 @@ function BuildPoof {
     $PLATFORM_DEFINES                                    \
     $PLATFORM_INCLUDE_DIRS                               \
     -I"$SRC"                                             \
+    -I"$SRC/poof"                                        \
     -o "$output_basename""_dev""$PLATFORM_EXE_EXTENSION" \
     $executable
 
@@ -165,6 +166,7 @@ function BuildExecutables
       $PLATFORM_DEFINES                              \
       $PLATFORM_INCLUDE_DIRS                         \
       -I"$SRC"                                       \
+      -I"$SRC/poof"                                  \
       -o "$output_basename""$PLATFORM_EXE_EXTENSION" \
       $executable && echo -e "$Success $executable" &
   done
@@ -184,6 +186,7 @@ function BuildDebugTests
       $PLATFORM_DEFINES                              \
       $PLATFORM_INCLUDE_DIRS                         \
       -I"$SRC"                                       \
+      -I"$SRC/poof"                                  \
       -o "$output_basename""$PLATFORM_EXE_EXTENSION" \
       $executable && echo -e "$Success $executable" &
   done
@@ -204,6 +207,7 @@ function BuildTests
       $PLATFORM_DEFINES                              \
       $PLATFORM_INCLUDE_DIRS                         \
       -I"$SRC"                                       \
+      -I"$SRC/poof"                                  \
       -I"$SRC/bonsai_debug"                          \
       -o "$output_basename""$PLATFORM_EXE_EXTENSION" \
       $executable && echo -e "$Success $executable" &
@@ -225,6 +229,7 @@ function BuildDebugSystem
     $PLATFORM_INCLUDE_DIRS                              \
     $SHARED_LIBRARY_FLAGS                               \
     -I"$SRC"                                            \
+    -I"$SRC/poof"                                  \
     -I"$SRC/bonsai_debug"                               \
     -o "$BIN/lib_debug_system""$PLATFORM_LIB_EXTENSION" \
     "$DEBUG_SRC_FILE" && echo -e "$Success $DEBUG_SRC_FILE" &
@@ -246,6 +251,7 @@ function BuildExamples
       $PLATFORM_INCLUDE_DIRS                                                          \
       $SHARED_LIBRARY_FLAGS                                                           \
       -I"$SRC"                                                                        \
+      -I"$SRC/poof"                                  \
       -I"$executable"                                                                 \
       -o "$output_basename"                                                           \
       "$executable/game.cpp" &&                                                       \
@@ -309,7 +315,7 @@ function BuildAllEMCC {
     -I src                          \
     -I src/bonsai_debug             \
     -I examples                     \
-    src/platform.cpp                \
+    src/game_loader.cpp                \
     -o bin/wasm/platform.html
 
     # --embed-file shaders     \
@@ -354,7 +360,7 @@ function SetSourceFiles
     $(find src -type f -name "*.cpp"                               \
     -and -not -wholename "src/bonsai_stdlib/cpp/stream.cpp"        \
     -and -not -wholename "src/net/server.cpp"                      \
-    -and -not -wholename "src/win32_platform.cpp"                  \
+    -and -not -wholename "src/game_loader.cpp"                  \
     -and -not -path "src/tests/*" )                                \
   "
 }
