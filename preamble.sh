@@ -11,3 +11,9 @@ else
   COLORFLAG="--colors-off"
 fi
 
+function ColorizeTitle()
+{
+  echo -e "$YELLOW$1$WHITE"
+  echo -e ""
+}
+
