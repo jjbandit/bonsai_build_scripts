@@ -4,11 +4,11 @@ BUILD_EVERYTHING=1
 
 CheckoutMetaOutput=0
 
-BuildPoof=1
-BuildExecutables=1
+BuildPoof=0
+BuildExecutables=0
 BuildDebugTests=0
 BuildTests=0
-BuildDebugSystem=0
+BuildDebugSystem=1
 BuildExamples=0
 
 RunFirstPreprocessor=0
@@ -136,7 +136,6 @@ function BuildPoof {
     $PLATFORM_CXX_OPTIONS                                \
     $PLATFORM_LINKER_OPTIONS                             \
     $PLATFORM_DEFINES                                    \
-    -D "BONSAI_DEBUG_SYSTEM_API"                         \
     $PLATFORM_INCLUDE_DIRS                               \
     -I"$SRC"                                             \
     -o "$output_basename""_dev""$PLATFORM_EXE_EXTENSION" \
@@ -205,7 +204,7 @@ function BuildTests
       $PLATFORM_DEFINES                              \
       $PLATFORM_INCLUDE_DIRS                         \
       -I"$SRC"                                       \
-      -I"$SRC/debug_system"                          \
+      -I"$SRC/bonsai_debug"                          \
       -o "$output_basename""$PLATFORM_EXE_EXTENSION" \
       $executable && echo -e "$Success $executable" &
   done
@@ -215,7 +214,7 @@ function BuildDebugSystem
 {
   echo ""
   ColorizeTitle "DebugSystem"
-  DEBUG_SRC_FILE="$SRC/debug_system/debug.cpp"
+  DEBUG_SRC_FILE="$SRC/bonsai_debug/debug.cpp"
   echo -e "$Building $DEBUG_SRC_FILE"
   clang++                                               \
     $OPTIMIZATION_LEVEL                                 \
@@ -223,11 +222,10 @@ function BuildDebugSystem
     $PLATFORM_CXX_OPTIONS                               \
     $PLATFORM_LINKER_OPTIONS                            \
     $PLATFORM_DEFINES                                   \
-    -D "BONSAI_DEBUG_SYSTEM_API"                        \
     $PLATFORM_INCLUDE_DIRS                              \
     $SHARED_LIBRARY_FLAGS                               \
     -I"$SRC"                                            \
-    -I"$SRC/debug_system"                               \
+    -I"$SRC/bonsai_debug"                               \
     -o "$BIN/lib_debug_system""$PLATFORM_LIB_EXTENSION" \
     "$DEBUG_SRC_FILE" && echo -e "$Success $DEBUG_SRC_FILE" &
 }
@@ -309,7 +307,7 @@ function BuildAllEMCC {
     -DEMCC=1                        \
     -DWASM=1                        \
     -I src                          \
-    -I src/debug_system             \
+    -I src/bonsai_debug             \
     -I examples                     \
     src/platform.cpp                \
     -o bin/wasm/platform.html
