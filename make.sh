@@ -34,18 +34,6 @@ META_OUT="$SRC/poof/output"
 # PREPROCESSOR_EXECUTABLE="bin/preprocessor_dev"
 # PREPROCESSOR_EXECUTABLE="bin/preprocessor_current"
 
-function SetOutputBinaryPathBasename()
-{
-  base_file="${1##*/}"
-  output_basename="$2/${base_file%%.*}"
-}
-
-function ColorizeTitle()
-{
-  echo -e "$YELLOW$1$WHITE"
-  echo -e ""
-}
-
 # TODO(Jesse, tags: build_pipeline): Investigate -Wcast-align situation
 
   # -fsanitize=address

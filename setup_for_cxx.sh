@@ -92,3 +92,15 @@ CXX_OPTIONS="
   -Wno-atomic-implicit-seq-cst
 "
 
+function SetOutputBinaryPathBasename()
+{
+  base_file="${1##*/}"
+  output_basename="$2/${base_file%%.*}"
+}
+
+function ColorizeTitle()
+{
+  echo -e "$YELLOW$1$WHITE"
+  echo -e ""
+}
+
