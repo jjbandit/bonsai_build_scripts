@@ -1,7 +1,7 @@
 Delimeter="$RED-----------------------------------------------------------$WHITE"
-Success="$GREEN  Success  $WHITE"
-Building="$BLUE  Building $WHITE"
-Failed="$RED Failed $WHITE"
+Success="$GREEN   Success $WHITE-"
+Building="$BLUE   Build   $WHITE-"
+   Failed="$RED   Failed  $WHITE-"
 
 if [ "$Platform" == "Linux" ] ; then
   PLATFORM_LINKER_OPTIONS="-lpthread -lX11 -ldl -lGL"
@@ -97,6 +97,14 @@ function SetOutputBinaryPathBasename()
   base_file="${1##*/}"
   output_basename="$2/${base_file%%.*}"
 }
+
+function SetFullOutputName()
+{
+  base_file="${1##*/}"
+  output_basename="$2/${base_file%%.*}"
+  full_output_name="$output_basename$PLATFORM_EXE_EXTENSION"
+}
+
 
 function ColorizeTitle()
 {
