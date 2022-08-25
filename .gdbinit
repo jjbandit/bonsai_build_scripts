@@ -1,8 +1,6 @@
 tui enable
 
 source scripts/gdb_pretty_printers.py
-source breakpoints
-
 
 define hookpost-delete
 save breakpoints breakpoints
@@ -24,6 +22,7 @@ save breakpoints breakpoints
 echo "\nsaving breakpoints\n"
 end
 
+source breakpoints
 
-start
-continue
+# start
+# continue
