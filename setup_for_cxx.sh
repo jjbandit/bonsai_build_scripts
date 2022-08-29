@@ -1,6 +1,8 @@
 Delimeter="$RED-----------------------------------------------------------$WHITE"
+    Info="$BLUE   Info    $WHITE-"
 Success="$GREEN   Success $WHITE-"
 Building="$BLUE   Build   $WHITE-"
+  Warn="$YELLOW   Warning $WHITE-"
    Failed="$RED   Failed  $WHITE-"
 
 if [ "$Platform" == "Linux" ] ; then
