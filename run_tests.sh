@@ -7,6 +7,8 @@ EXIT_CODE=0
 if [ "$Platform" == "Linux" ] ; then
   exe_search_string='bin/tests/*';
 elif [[ "$Platform" == "Windows" ]] ; then
+  # TODO(Jesse): Do we actually need this since switching off VS?  Does clang
+  # output pdb files there or something?
   exe_search_string='bin/tests/*.exe';
 fi
 
