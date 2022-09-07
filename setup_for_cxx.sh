@@ -110,7 +110,7 @@ function SetFullOutputName()
 
 function ColorizeTitle()
 {
-  echo -e "$YELLOW$1$WHITE"
+  echo -e " $YELLOW$1$WHITE"
   echo -e ""
 }
 
