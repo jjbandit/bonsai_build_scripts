@@ -61,6 +61,7 @@ CXX_OPTIONS="
 
   -Wno-unknown-warning-option
 
+  -Wno-exit-time-destructors
   -Wno-c++98-compat-pedantic
   -Wno-gnu-anonymous-struct
   -Wno-missing-prototypes
