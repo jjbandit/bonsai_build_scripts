@@ -331,62 +331,8 @@ fi
 
 # SOURCE_FILES="src/poof/preprocessor.h"
 
-function SetSourceFiles
-{
-  rm -Rf $META_OUT
-  mkdir $META_OUT
-  SOURCE_FILES="                                                   \
-    $(find src -type f -name "*.h"                                 \
-    -and -not -wholename "src/net/network.h"                       \
-    -and -not -wholename "src/bonsai_stdlib/headers/stream.h"      \
-    -and -not -wholename "src/bonsai_stdlib/headers/perlin.h"      \
-    -and -not -wholename "src/bonsai_stdlib/headers/primitives.h"  \
-    -and -not -wholename "src/poof/defines.h"           \
-    -and -not -wholename "src/win32_platform.h"                    \
-    -and -not -path      "src/tests/*" )                           \
-                                                                   \
-    $(find src -type f -name "*.cpp"                               \
-    -and -not -wholename "src/bonsai_stdlib/cpp/stream.cpp"        \
-    -and -not -wholename "src/net/server.cpp"                      \
-    -and -not -wholename "src/game_loader.cpp"                  \
-    -and -not -path "src/tests/*" )                                \
-  "
-}
-
-function RunPreprocessor
-{
-  SetSourceFiles
-  ColorizeTitle "Preprocessing"
-  if [ -x $PREPROCESSOR_EXECUTABLE ]; then
-    $PREPROCESSOR_EXECUTABLE $SOURCE_FILES
-    if [ $? -ne 0 ]; then
-      echo ""
-      echo -e "$Failed Preprocessing failed, exiting." 
-      git checkout "src/poof/output"
-      exit 1
-    fi
-  fi
-}
 
 function RunEntireBuild {
-
-  if [ $CheckoutMetaOutput == 1 ]; then
-    git checkout "src/poof/output"
-  fi
-
-  if [ $RunFirstPreprocessor == 1 ]; then
-    PREPROCESSOR_EXECUTABLE="bin/preprocessor_current"
-    RunPreprocessor
-  fi
-
-  if [[ $BuildPoof == 1 || $BUILD_EVERYTHING == 1 ]]; then
-    BuildPoof
-    [ ! -x $PREPROCESSOR_EXECUTABLE ] && echo -e "$Failed Couldn't find poof executable, exiting." && exit 1
-  fi
-
-  if [ $RunSecondPreprocessor == 1 ]; then
-    ./scripts/preprocessor_dev.sh
-  fi
 
   if [ $EMCC == 1 ]; then
     BuildAllEMCC
@@ -397,11 +343,6 @@ function RunEntireBuild {
   if [ $RunTests == 1 ]; then
     ./scripts/run_tests.sh
   fi
-
-  if [ $RunFinalPreprocessor == 1 ]; then
-    RunPreprocessor
-  fi
-
 }
 
 
