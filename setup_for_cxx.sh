@@ -31,8 +31,10 @@ if [ "$Platform" == "Linux" ] ; then
 
 elif [[ "$Platform" == "Windows" ]] ; then
 
-  PLATFORM_LINKER_OPTIONS="-lgdi32 -luser32 -lopengl32 -lglu32"
-  PLATFORM_DEFINES="-DBONSAI_WIN32"
+  PLATFORM_LINKER_OPTIONS="-lgdi32 -luser32 -lopengl32 -lglu32 -fuse-ld=lld -W1,/debug,/pdb:name.pdb"
+
+
+  PLATFORM_DEFINES="-D _CRT_SECURE_NO_WARNINGS -D BONSAI_WIN32"
   PLATFORM_INCLUDE_DIRS=""
   PLATFORM_CXX_OPTIONS="-g -gcodeview"
 
