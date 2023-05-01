@@ -77,7 +77,6 @@ CXX_OPTIONS="
   -Wno-four-char-constants
   -Wno-old-style-cast
   -Wno-float-equal
-  -Wno-double-promotion
   -Wno-padded
   -Wno-global-constructors
   -Wno-cast-align
