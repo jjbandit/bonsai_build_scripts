@@ -1,9 +1,9 @@
 #! /bin/bash
 
-Platform="Unknown"
 UNAME=$(uname)
+Platform=$UNAME
 if [ "$UNAME" == "Linux" ] ; then
   Platform="Linux"
-elif [[ "$UNAME" == CYGWIN* || "$UNAME" == MINGW* ]] ; then
+elif [[ "$UNAME" == CYGWIN* || "$UNAME" == MINGW* || "$UNAME" == MSYS* ]] ; then
   Platform="Windows"
 fi

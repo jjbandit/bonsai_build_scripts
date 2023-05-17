@@ -90,6 +90,7 @@ CXX_OPTIONS="
 
   -Wno-unused-value
   -Wno-unused-variable
+  -Wno-unused-but-set-variable
   -Wno-unused-parameter
 
   -Wno-implicit-int-float-conversion
@@ -97,6 +98,8 @@ CXX_OPTIONS="
   -Wno-reorder-init-list
   -Wno-unused-macros
   -Wno-atomic-implicit-seq-cst
+
+  -Wno-cast-function-type
 "
 
 function SetOutputBinaryPathBasename()
