@@ -8,7 +8,6 @@ Building="$BLUE   Build   $WHITE-"
 
 if [ "$Platform" == "Linux" ] ; then
   PLATFORM_LINKER_OPTIONS="-lpthread -lX11 -ldl -lGL"
-  PLATFORM_DEFINES=""
   PLATFORM_DEFINES="$PLATFORM_DEFINES -D BONSAI_LINUX"
   # PLATFORM_DEFINES="$PLATFORM_DEFINES -DBONSAI_SLOW"
   PLATFORM_INCLUDE_DIRS=""
@@ -46,6 +45,17 @@ elif [[ "$Platform" == "Windows" ]] ; then
 
   PLATFORM_EXE_EXTENSION=".exe"
   PLATFORM_LIB_EXTENSION=".dll"
+
+elif [[ "$Platform" == "Darwin" ]] ; then
+  PLATFORM_DEFINES="$PLATFORM_DEFINES -D BONSAI_LINUX"
+  PLATFORM_LINKER_OPTIONS="-lpthread -lX11 -ldl -lGL"
+
+  PLATFORM_INCLUDE_DIRS=""
+  # PLATFORM_CXX_OPTIONS="-ggdb"
+  SHARED_LIBRARY_FLAGS="-shared -fPIC"
+  PLATFORM_EXE_EXTENSION=""
+  PLATFORM_LIB_EXTENSION=".so"
+
 else
   echo "Unsupported Platform ($Platform), exiting." && exit 1
 fi
