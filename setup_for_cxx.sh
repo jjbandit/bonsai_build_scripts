@@ -65,6 +65,7 @@ CXX_OPTIONS="
   -Weverything
 
   -Wno-unknown-warning-option
+  -Wno-unsafe-buffer-usage
 
   -Wno-exit-time-destructors
   -Wno-c++98-compat-pedantic
