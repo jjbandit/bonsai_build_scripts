@@ -125,3 +125,44 @@ function ColorizeTitle()
   echo -e ""
 }
 
+declare -a build_job_pids
+declare -a build_job_names
+
+# Call like: TrackPid "job name" <pid>
+TrackPid() {
+    local name=$1
+    local pid=$2
+    # echo "$name -- $pid"
+    build_job_pids=(${build_job_pids[@]} $pid)
+    build_job_names=(${build_job_names[@]} $name)
+}
+
+WaitForTrackedPids() {
+    while [ ${#build_job_pids[@]} -ne 0 ]; do
+        # echo "Waiting for pids: ${build_job_pids[@]}"
+        local range=$(eval echo {0..$((${#build_job_pids[@]}-1))})
+        local i
+        for i in $range; do
+            if ! kill -0 ${build_job_pids[$i]} 2> /dev/null; then
+
+                exit_code=0
+                wait ${build_job_pids[$i]} || exit_code=$?
+
+                if [ $exit_code -eq 0 ]; then
+                  echo -e "$Success ${build_job_names[$i]}"
+                else
+                  echo -e "$Failed ${build_job_names[$i]}"
+                  exit 1
+                fi
+
+                unset build_job_pids[$i]
+                unset build_job_names[$i]
+            fi
+        done
+         # Expunge nulls created by unset.
+        build_job_pids=("${build_job_pids[@]}")
+        build_job_names=("${build_job_names[@]}")
+        sleep 0.25
+    done
+}
+
