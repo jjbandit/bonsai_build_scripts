@@ -80,12 +80,13 @@ CXX_OPTIONS="
   -Wno-four-char-constants
   -Wno-old-style-cast
   -Wno-float-equal
-  -Wno-padded
   -Wno-global-constructors
   -Wno-cast-align
+
   -Wno-switch-enum
-  -Wno-undef
   -Wno-covered-switch-default
+
+  -Wno-undef
   -Wno-c99-extensions
   -Wno-dollar-in-identifier-extension
 
@@ -100,9 +101,6 @@ CXX_OPTIONS="
   -Wno-extra-semi-stmt
   -Wno-reorder-init-list
   -Wno-unused-macros
-  -Wno-atomic-implicit-seq-cst
-
-  -Wno-cast-function-type
 "
 
 function SetOutputBinaryPathBasename()
