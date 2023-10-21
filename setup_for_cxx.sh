@@ -71,7 +71,10 @@ CXX_OPTIONS="
 
   -Wno-exit-time-destructors
   -Wno-c++98-compat-pedantic
+
   -Wno-gnu-anonymous-struct
+  -Wno-nested-anon-types
+
   -Wno-missing-prototypes
   -Wno-zero-as-null-pointer-constant
   -Wno-format-nonliteral
