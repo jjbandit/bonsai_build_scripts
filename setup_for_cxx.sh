@@ -104,6 +104,8 @@ CXX_OPTIONS="
   -Wno-extra-semi-stmt
   -Wno-reorder-init-list
   -Wno-unused-macros
+
+  -Wno-padded
 "
 
 function SetOutputBinaryPathBasename()
